@@ -1,0 +1,21 @@
+<table class="table table-striped">
+    <thead class="bg-primary text-white">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">{{tHead.th1}}</th>
+            <th scope="col">{{tHead.th2}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let itemFiltered of itemsFiltered$ | async; index as i" (click)="itemSelect(itemFiltered, i)" [ngClass]="{'on': numberRowSelected == i}" [routerLink]="[itemFiltered.patientId]" class="cursor-pointer">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>
+                <ngb-highlight [result]="itemFiltered[tBody.tb1]" term=""></ngb-highlight>
+            </td>
+            <td>
+                <ngb-highlight [result]="itemFiltered[tBody.tb2]" term=""></ngb-highlight>
+            </td>
+
+        </tr>
+    </tbody>
+</table>

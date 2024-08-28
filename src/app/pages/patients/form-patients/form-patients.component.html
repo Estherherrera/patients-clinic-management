@@ -1,0 +1,21 @@
+<h4 class="text pt-3">Agregar Paciente</h4>
+<form [formGroup]="formPatient" (ngSubmit)="onSubmit()">
+    <label class="mt-2">Nombre</label>
+    <input type="text" class="form-control" formControlName="name" />
+    <label class="mt-1">Apellidos</label>
+    <input type="text" class="form-control" formControlName="surname" />
+    <label class="mt-1">Fecha de Nacimiento</label>
+    <input type="text" class="form-control" formControlName="dateOfBirth" />
+    <label class="mt-1">teléfono Móvil</label>
+    <input type="text" class="form-control" formControlName="phoneNumber" />
+    <label class="mt-1">Dirección</label>
+    <input type="text" class="form-control" formControlName="address" />
+    <label class="mt-1">Correo Electrónico</label>
+    <input type="text" class="form-control" formControlName="email" />
+    <label class="mt-1">Contacto de Emergencia</label>
+    <input type="text" class="form-control" formControlName="emergencyContact" />
+    <label class="mt-1">Seguro Médico</label>
+    <input type="text" class="form-control" formControlName="medicalInsurance" />
+    <button type="submit" class="btn btn-primary mt-2">Guardar</button> &nbsp;
+    <button onclick="window.location.href='list-patient/:id'" class="btn btn-danger mt-2 justify-content-end">Cancelar</button>
+</form>

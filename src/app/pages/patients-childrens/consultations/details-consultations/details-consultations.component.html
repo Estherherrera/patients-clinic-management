@@ -1,0 +1,5 @@
+<p *ngIf="!consultationsService.consultationSelected$.value">Seleccione un Paciente Por Favor</p>
+<div *ngIf="consultationsService.consultationSelected$.value">
+    {{consultationsService.consultationSelected$.value.consultationDate}}
+
+</div>

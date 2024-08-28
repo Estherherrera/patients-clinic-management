@@ -1,0 +1,10 @@
+<div class="row">
+    <app-search-and-filters></app-search-and-filters>
+    <div class="col-md-8">
+        <app-list [itemsFiltered$]="vitalsService.vitalsFiltered$" [tHead]="tHead" [tBody]="tBody"></app-list>
+
+    </div>
+    <div class="col-md-4">
+        <router-outlet></router-outlet>
+    </div>
+</div>

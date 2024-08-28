@@ -1,0 +1,4 @@
+<p *ngIf="!vitalsService.vitalSelected$.value">Seleccione una fecha de toma de signos Vitales</p>
+<div *ngIf="vitalsService.vitalSelected$.value">
+    {{vitalsService.vitalSelected$.value.dateTaken}}
+</div>
