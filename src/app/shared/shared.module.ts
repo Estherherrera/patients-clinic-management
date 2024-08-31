@@ -5,6 +5,7 @@ import { ListComponent } from './list/list.component';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AlertComponent } from './modals/alert/alert.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -12,7 +13,8 @@ import { AlertComponent } from './modals/alert/alert.component';
   declarations: [
     ListComponent,
     NavbarComponent,
-    AlertComponent
+    AlertComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { AlertComponent } from './modals/alert/alert.component';
   ],
   exports: [
     ListComponent,
-    NavbarComponent
+    NavbarComponent,
+    FooterComponent
   ]
 })
 export class SharedModule { }
