@@ -100,6 +100,28 @@ export class PatientsService {
       emergencyContact: 'Madre',
       medicalInsurance: 'dfg1218',
   },
+  {
+    patientId:        8,
+      name:             'Isabel',
+      surname:          'Herrera',
+      dateOfBirth:      '28-11-94',
+      phoneNumber:      '789456123',
+      address:          'Oviedo',
+      email:            'isabel@herrera.com',
+      emergencyContact: 'Madre',
+      medicalInsurance: 'dfg1218',
+  },
+  {
+    patientId:        8,
+      name:             'Mayari',
+      surname:          'jimenez',
+      dateOfBirth:      '15-10-94',
+      phoneNumber:      '789456123',
+      address:          'Oviedo',
+      email:            'mayari@jimenez.com',
+      emergencyContact: 'tia',
+      medicalInsurance: 'dfg1218',
+  },
   ]
 
   loadPatients = new BehaviorSubject<boolean>(true)
