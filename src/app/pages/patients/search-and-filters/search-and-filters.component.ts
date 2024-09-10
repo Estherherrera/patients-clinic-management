@@ -4,7 +4,7 @@ import { map, startWith } from 'rxjs';
 import { PatientsService } from '../patients.service';
 
 @Component({
-  selector: 'app-search-and-filters',
+  selector: 'patient-search-and-filters',
   templateUrl: './search-and-filters.component.html',
   styleUrls: ['./search-and-filters.component.scss']
 })

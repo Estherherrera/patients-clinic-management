@@ -19,10 +19,10 @@ export class ConsultationsComponent implements OnInit {
     this.route.params
     .pipe(
       switchMap(({patientId}) => {
-        return this.consultationsService.getConsultations(patientId)
-        
-        
-      }) 
+        return this.consultationsService.getConsultations()
+
+
+      })
     )
     .subscribe(consultations => {
       this.consultationsService.consultationsFiltered$.next(consultations);

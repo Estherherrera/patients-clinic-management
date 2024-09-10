@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs';
 
 @Component({
-  selector: 'app-search-and-filters',
+  selector: 'consultations-search-and-filters',
   templateUrl: './search-and-filters.component.html',
   styleUrls: ['./search-and-filters.component.scss']
 })

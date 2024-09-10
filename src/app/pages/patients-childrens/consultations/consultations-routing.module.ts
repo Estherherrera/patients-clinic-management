@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DetailsConsultationsComponent } from './details-consultations/details-consultations.component';
 import { ConsultationsComponent } from './consultations.component';
 import { FormConsultationsComponent } from './form-consultations/form-consultations.component';
+import { FormVitalsComponent } from '../vitals/form-vitals/form-vitals.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,7 @@ const routes: Routes = [
     children: [
       {
         path: ':id',
-        component: DetailsConsultationsComponent 
+        component: DetailsConsultationsComponent
       },
       {
         path: ':id/create',
@@ -20,6 +21,11 @@ const routes: Routes = [
           isNew: true
         }
       },
+      {
+        path: ':id/editconsultation',
+        component: FormConsultationsComponent
+      },
+
     ]
   }
 ];

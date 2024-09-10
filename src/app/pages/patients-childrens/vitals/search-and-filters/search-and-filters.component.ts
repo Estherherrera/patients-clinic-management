@@ -4,7 +4,7 @@ import { map, startWith } from 'rxjs';
 import { VitalsService } from '../vitals.service';
 
 @Component({
-  selector: 'app-search-and-filters',
+  selector: 'vital-search-and-filters',
   templateUrl: './search-and-filters.component.html',
   styleUrls: ['./search-and-filters.component.scss']
 })

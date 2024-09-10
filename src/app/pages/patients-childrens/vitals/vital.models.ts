@@ -3,7 +3,7 @@
 export interface Vital {
     vitalsId:        number;
     patientId:       number;
-    height:          number;
+    temperature:     number;
     weight:          number;
     respiratoryRate: number;
     bloodPressure:   string;

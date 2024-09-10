@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
+import { VitalsService } from '../vitals.service';
 
 @Component({
   selector: 'app-form-vitals',
@@ -11,17 +12,90 @@ export class FormVitalsComponent implements OnInit {
   isNewVital: boolean = false
   formVital!: FormGroup
 
-  constructor(private route: ActivatedRoute, private fB: FormBuilder) { }
+  public inputControls =[
+    {
+      label: 'Fecha de Toma',
+      formControlName: 'dateTaken'
+    },
+    {
+      label: 'Temperatura',
+      formControlName: 'temperature'
+    },
+    {
+      label: 'Peso',
+      formControlName: 'weight'
+    },
+    {
+      label: 'Frecuencia Respiratoria',
+      formControlName: 'respiratoryRate'
+    },
+    {
+      label: 'Presión Arterial',
+      formControlName: 'bloodPressure'
+    },
+    {
+      label: 'Frecuencia Cardiaca',
+      formControlName: 'heartRate'
+    },
+
+  ]
+
+  constructor(private route: ActivatedRoute, private fB: FormBuilder, private vitalsService: VitalsService) { }
+
 
   ngOnInit(): void {
     let { isNew } = this.route.snapshot.data
+    console.log('isNew Vitals', isNew)
     this.isNewVital = isNew
     this.formVital = this.fB.group({
-      dateTaken: ['', Validators.required]
+      vitalsId:    [],
+      patientId:   [],
+      dateTaken:        ['', Validators.required],
+      temperature:      ['', Validators.required],
+      weight:           ['', Validators.required],
+      respiratoryRate:  ['', Validators.required],
+      bloodPressure:    ['', Validators.required],
+      heartRate:        ['', Validators.required]
+    })
+    if (!isNew){
+      this.initForm()
+    }
+  }
+
+  initForm(): void {
+    this.formVital.setValue({
+      ...this.vitalsService.vitalSelected$.value
     })
   }
+
+  isValidField( field: string): boolean | null{
+    return this.formVital.controls[field].errors &&
+          this.formVital.controls[field].touched
+  }
+
   onSubmit(): void {
-    console.log(this.formVital.value)
+    if(this.formVital.invalid){
+      this.formVital.markAllAsTouched()
+      return
+    }
+    if(this.isNewVital){
+      this.vitalsService.postVital(this.formVital.value)
+      .subscribe(newVital => {
+        this.vitalsService.vitalSelected$.next(newVital)
+        this.vitalsService.loadVitals.next(true)
+        console.log(newVital)
+      })
+      this.formVital.reset();
+    }else{
+      this.vitalsService.putVital(this.formVital.value)
+      .subscribe(putVital => {
+        this.vitalsService.vitalSelected$.next(putVital)
+        this.vitalsService.loadVitals.next(true)
+        console.log(putVital)
+
+      })
+      this.formVital.reset()
+    }
   }
 
 }

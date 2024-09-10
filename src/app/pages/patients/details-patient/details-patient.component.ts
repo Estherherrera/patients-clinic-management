@@ -26,6 +26,7 @@ export class DetailsPatientComponent implements OnInit {
       this.patientsService.loadPatients.next(true)
       this.patientsService.patientSelected$.next(false)
     })
+
   }
 
 }

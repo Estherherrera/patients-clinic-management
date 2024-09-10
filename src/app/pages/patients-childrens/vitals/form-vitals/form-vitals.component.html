@@ -1,4 +1,17 @@
+<h4 class="text pt-3">Agregar Signos Vitales</h4>
 <form [formGroup]="formVital" (ngSubmit)="onSubmit()">
-    <input type="text" formControlName="dateTaken" />
-    <button type="submit">Guardar</button>
+
+  <div *ngFor="let control of inputControls">
+    <label class="mt-2"> {{ control.label }} </label>
+    <input type="text" class="form-control" [formControlName]="control.formControlName" />
+    <div>
+      <span *ngIf="isValidField(control.formControlName)" class="form-text text-danger">
+         Este campo es requerido
+      </span>
+    </div>
+  </div>
+    <button type="submit" class="btn btn-primary mt-2">Guardar</button> &nbsp;
+    <button onclick="window.location.href='list-patients/:id/list-vitals'" class="btn btn-danger mt-2 justify-content-end">
+      Cancelar
+    </button>
 </form>

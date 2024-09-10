@@ -1,9 +1,18 @@
-<div class="row">
-    <app-search-and-filters></app-search-and-filters>
+<div class="row m-3">
+  <div class="d-flex justify-content-between">
+    <consultations-search-and-filters></consultations-search-and-filters>
+    <a routerLink=":id/create" class="add">
+      Agregar Consulta
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#007BFF" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
+    </svg>
+    </a>
+
+  </div>
     <div class="col-md-8">
         <app-list [itemsFiltered$]="consultationsService.consultationsFiltered$" [tHead]="tHead" [tBody]="tBody"></app-list>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 pb-3 mb-4 info">
         <router-outlet></router-outlet>
     </div>
 </div>

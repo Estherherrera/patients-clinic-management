@@ -22,9 +22,7 @@ export class PatientsComponent implements OnInit, OnDestroy {
     this.subscription = this.patientsService.loadPatients.subscribe(() => {
       this.getPatients()
       // this.router.navigate(['/list-patients/0'])
-      console.log("Hola")
     })
-    console.log('Hola222')
     this.getPatients()
   }
 
