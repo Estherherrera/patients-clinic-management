@@ -49,16 +49,14 @@ export class VitalsService {
   loadVitals = new BehaviorSubject<boolean>(true)
   constructor(private http: HttpClient, private patientsService: PatientsService ) { }
 
+
+
   getVitals(): Observable<Vital[]>{
-    console.log('patientSelected antes de filter', this.patientsService.patientSelected$.value)
-    console.log('vitals:', this.vitals)
+
     const vitalsFilter = this.vitals.filter(vital => {
       return vital.patientId === (this.patientsService.patientSelected$.value as any).patientId;
     })
     this.vitalsFiltered$.next(vitalsFilter)
-    // console.log('vitalsFiltered$', this.vitalsFiltered$)
-    console.log('paciente seleccionado después:',  (this.patientsService.patientSelected$.value as any).patientId)
-    // console.log('this.vital despues del filter', this.vitals)
     return of(vitalsFilter)
   }
 
@@ -68,19 +66,15 @@ export class VitalsService {
     return of(vital)
   }
 
-  deleteVital(id: number): Observable<any> {
-    this.vitals =this.vitals.filter(vital =>
-      vital.vitalsId !== id
-     )
-     this.vitalsFiltered$.next(this.vitals)
-     return of(true)
-  }
 
   putVital(newVital: Vital): Observable<Vital> {
     this.vitals = this.vitals.map(vitalItem =>
       vitalItem.vitalsId === newVital.vitalsId ? newVital : vitalItem
     )
-    this.vitalsFiltered$.next(this.vitals)
+    const vitalsFilter = this.vitals.filter(vital => {
+      return vital.patientId === (this.patientsService.patientSelected$.value as any).patientId;
+    })
+    this.vitalsFiltered$.next(vitalsFilter)
     return of(newVital)
   }
 
