@@ -50,13 +50,14 @@ export class VitalsService {
   constructor(private http: HttpClient, private patientsService: PatientsService ) { }
 
   getVitals(): Observable<Vital[]>{
-    // console.log('patientSelected:::', this.patientsService.patientSelected$.value)
+    console.log('patientSelected antes de filter', this.patientsService.patientSelected$.value)
+    console.log('vitals:', this.vitals)
     const vitalsFilter = this.vitals.filter(vital => {
       return vital.patientId === (this.patientsService.patientSelected$.value as any).patientId;
     })
     this.vitalsFiltered$.next(vitalsFilter)
     // console.log('vitalsFiltered$', this.vitalsFiltered$)
-    // console.log('paciente seleccionado:',  (this.patientsService.patientSelected$.value as any).patientId)
+    console.log('paciente seleccionado después:',  (this.patientsService.patientSelected$.value as any).patientId)
     // console.log('this.vital despues del filter', this.vitals)
     return of(vitalsFilter)
   }

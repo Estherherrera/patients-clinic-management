@@ -8,7 +8,7 @@ import { Patient } from './patient.models';
   providedIn: 'root'
 })
 export class PatientsService {
-  patientSelected$ = new BehaviorSubject<Patient | false>(false)
+  patientSelected$ = new BehaviorSubject<Patient>(false as any)
   patientsFiltered$ = new BehaviorSubject<Patient[]>([])
 
     patients = [

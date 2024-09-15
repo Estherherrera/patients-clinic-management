@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { map, startWith } from 'rxjs';
+import { filter, map, startWith } from 'rxjs';
 import { VitalsService } from '../vitals.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class SearchAndFiltersComponent implements OnInit {
   ngOnInit(): void {
     this.inputFilter.valueChanges.pipe(
       startWith(''),
+      filter(term => term.length > 0),
       map((text) => this.search(text)),
     ).subscribe(vitalsFiltered => {
       this.vitalsService.vitalsFiltered$.next(vitalsFiltered)

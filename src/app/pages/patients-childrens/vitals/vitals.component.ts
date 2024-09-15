@@ -13,7 +13,6 @@ export class VitalsComponent implements OnInit {
   tHead = {th1: 'Fecha', th2: 'Presión Arterial'}
   tBody = {tb1: 'dateTaken', tb2: 'bloodPressure'}
 
-  // public name: string = (this.patientsService.patientSelected$.value as any).name
 
   constructor(public vitalsService: VitalsService, private route: ActivatedRoute, public patientsService: PatientsService) { }
 
@@ -29,8 +28,8 @@ export class VitalsComponent implements OnInit {
     )
     .subscribe(vitals => {
       // console.log('vitals subscribe::', vitals)
-      this.vitalsService.vitalsFiltered$.next(vitals);
-      this.vitalsService.vitals = vitals;
+      // this.vitalsService.vitalsFiltered$.next(vitals);
+      // this.vitalsService.vitals = vitals;
     })
   }
 

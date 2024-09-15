@@ -57,10 +57,17 @@ export class ConsultationsService {
 
   getConsultations(): Observable<Consultation[]>{
     // return this.http.get<Consultation[]>('http://localhost:8080/api/v1/consultation/patients/' + id)
+    console.log('patientSelected antes de filter', this.patientsService.patientSelected$.value)
+    console.log('filtered antes', this.consultationsFiltered$.value)
+    console.log('Array consultations Antes', this.consultations)
     const consultationsFilter = this.consultations.filter(consultation => {
       return consultation.patientId === (this.patientsService.patientSelected$.value as any).patientId;
     })
+    console.log('filtro:', consultationsFilter)
+    console.log('Array consultations despues', this.consultations)
     this.consultationsFiltered$.next(consultationsFilter)
+    console.log('filtered después: ', this.consultationsFiltered$.value)
+    console.log('paciente seleccionado después:',  (this.patientsService.patientSelected$.value as any).patientId)
     return of(consultationsFilter)
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConsultationsService } from './consultations.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { PatientsService } from '../../patients/patients.service';
 
 @Component({
   selector: 'app-consultations',
@@ -13,7 +14,7 @@ export class ConsultationsComponent implements OnInit {
   tHead = {th1: 'Fecha de la Consulta', th2: 'Razón de la Consulta'}
   tBody = {tb1: 'consultationDate', tb2: 'reasonForConsultation'}
 
-  constructor(public consultationsService: ConsultationsService, private route: ActivatedRoute) { }
+  constructor(public consultationsService: ConsultationsService, private route: ActivatedRoute, public patientsService: PatientsService) { }
 
   ngOnInit(): void {
     this.route.params
@@ -25,8 +26,7 @@ export class ConsultationsComponent implements OnInit {
       })
     )
     .subscribe(consultations => {
-      this.consultationsService.consultationsFiltered$.next(consultations);
-      this.consultationsService.consultations = consultations;
+      // this.consultationsService.consultationsFiltered$.next(consultations);
     })
   }
 

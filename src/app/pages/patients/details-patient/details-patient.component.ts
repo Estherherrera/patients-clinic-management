@@ -24,7 +24,7 @@ export class DetailsPatientComponent implements OnInit {
     .subscribe(deletePatient => {
       console.log(deletePatient)
       this.patientsService.loadPatients.next(true)
-      this.patientsService.patientSelected$.next(false)
+      this.patientsService.patientSelected$.next(false as any)
     })
 
   }
