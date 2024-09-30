@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { VitalsService } from '../vitals.service';
+import { PatientsService } from '../../../patients/patients.service';
 
 @Component({
   selector: 'app-form-vitals',
@@ -40,7 +41,11 @@ export class FormVitalsComponent implements OnInit {
 
   ]
 
-  constructor(private route: ActivatedRoute, private fB: FormBuilder, private vitalsService: VitalsService) { }
+  constructor(
+        private route: ActivatedRoute,
+        private fB: FormBuilder,
+        private vitalsService: VitalsService,
+        private patientsService: PatientsService) { }
 
 
   ngOnInit(): void {
@@ -49,7 +54,7 @@ export class FormVitalsComponent implements OnInit {
     this.isNewVital = isNew
     this.formVital = this.fB.group({
       vitalsId:    [],
-      patientId:   [],
+      patientId:   [(this.patientsService.patientSelected$.value.patientId)],
       dateTaken:        ['', Validators.required],
       temperature:      ['', Validators.required],
       weight:           ['', Validators.required],
@@ -83,19 +88,16 @@ export class FormVitalsComponent implements OnInit {
       .subscribe(newVital => {
         this.vitalsService.vitalSelected$.next(newVital)
         this.vitalsService.loadVitals.next(true)
-        console.log(newVital)
       })
-      this.formVital.reset();
     }else{
       this.vitalsService.putVital(this.formVital.value)
       .subscribe(putVital => {
         this.vitalsService.vitalSelected$.next(putVital)
         this.vitalsService.loadVitals.next(true)
-        console.log(putVital)
 
       })
-      this.formVital.reset()
     }
+    this.formVital.reset()
   }
 
 }

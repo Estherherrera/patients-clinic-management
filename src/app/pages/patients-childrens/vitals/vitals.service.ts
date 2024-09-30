@@ -16,12 +16,12 @@ export class VitalsService {
   {
     vitalsId:        1,
     patientId:       1,
-    temperature:     55,
-    weight:          55,
-    respiratoryRate: 55,
-    bloodPressure:   'string',
-    heartRate:       'string',
-    dateTaken:       'string',
+    temperature:     45,
+    weight:          45,
+    respiratoryRate: 45,
+    bloodPressure:   '100/150',
+    heartRate:       '80',
+    dateTaken:       '25/02/24',
   },
   {
     vitalsId:        2,
@@ -29,16 +29,16 @@ export class VitalsService {
     temperature:     55,
     weight:          55,
     respiratoryRate: 55,
-    bloodPressure:   'string',
-    heartRate:       'string',
-    dateTaken:       'string',
+    bloodPressure:   '60/100',
+    heartRate:       '50',
+    dateTaken:       '23/09/24',
   },
   {
     vitalsId:        3,
     patientId:       2,
-    temperature:     55,
-    weight:          55,
-    respiratoryRate: 55,
+    temperature:     33,
+    weight:          33,
+    respiratoryRate: 33,
     bloodPressure:   '80/120',
     heartRate:       '80',
     dateTaken:       '21/08/24',
@@ -49,20 +49,23 @@ export class VitalsService {
   loadVitals = new BehaviorSubject<boolean>(true)
   constructor(private http: HttpClient, private patientsService: PatientsService ) { }
 
+  onFilterVitals() {
+    const vitalsFilter = this.vitals.filter(vital => {
+      return vital.patientId === this.patientsService.patientSelected$.value.patientId;
+    })
+     return this.vitalsFiltered$.next(vitalsFilter)
+  }
+
 
 
   getVitals(): Observable<Vital[]>{
-
-    const vitalsFilter = this.vitals.filter(vital => {
-      return vital.patientId === (this.patientsService.patientSelected$.value as any).patientId;
-    })
-    this.vitalsFiltered$.next(vitalsFilter)
-    return of(vitalsFilter)
+    this.onFilterVitals()
+    return of()
   }
 
   postVital(vital: Vital): Observable<Vital> {
     this.vitals.push(vital)
-    this.vitalsFiltered$.next(this.vitals)
+    this.onFilterVitals()
     return of(vital)
   }
 
@@ -71,10 +74,7 @@ export class VitalsService {
     this.vitals = this.vitals.map(vitalItem =>
       vitalItem.vitalsId === newVital.vitalsId ? newVital : vitalItem
     )
-    const vitalsFilter = this.vitals.filter(vital => {
-      return vital.patientId === (this.patientsService.patientSelected$.value as any).patientId;
-    })
-    this.vitalsFiltered$.next(vitalsFilter)
+    this.onFilterVitals()
     return of(newVital)
   }
 

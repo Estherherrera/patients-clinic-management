@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConsultationsService } from '../consultations.service';
+import { PatientsService } from '../../../patients/patients.service';
 
 @Component({
   selector: 'app-form-consultations',
@@ -49,7 +50,11 @@ export class FormConsultationsComponent implements OnInit {
   ]
 
 
-  constructor(private route: ActivatedRoute, private fB: FormBuilder, public consultationsService: ConsultationsService) { }
+  constructor(
+          private route: ActivatedRoute,
+          private fB: FormBuilder,
+          public consultationsService: ConsultationsService,
+          private patientsService: PatientsService) { }
 
   ngOnInit(): void {
     let { isNew } = this.route.snapshot.data
@@ -57,7 +62,7 @@ export class FormConsultationsComponent implements OnInit {
     this.isNewConsultation = isNew
     this.formConsultation = this.fB.group({
       consultationId:        [ ],
-      patientId:             [ ],
+      patientId:             [ this.patientsService.patientSelected$.value.patientId ],
       consultationDate:      ['', Validators.required],
       reasonForConsultation: ['', Validators.required],
       physicalExam:          ['', Validators.required],
@@ -103,7 +108,6 @@ export class FormConsultationsComponent implements OnInit {
       })
     }
     this.formConsultation.reset()
-    console.log(this.formConsultation.value)
   }
 
 }

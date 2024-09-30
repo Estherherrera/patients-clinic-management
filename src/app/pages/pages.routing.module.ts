@@ -13,7 +13,7 @@ const routes: Routes = [
       import('./patients/patients.module').then((m) => m.PatientsModule),
   },
   {
-    path: 'list-patients/:id/list-vitals',
+    path: 'list-patients/:patientId/list-vitals',
     loadChildren: () =>
       import('./patients-childrens/vitals/vitals.module').then(
         (m) => m.VitalsModule

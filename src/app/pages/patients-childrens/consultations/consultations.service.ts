@@ -55,22 +55,23 @@ export class ConsultationsService {
   loadConsultations = new BehaviorSubject<boolean>(true)
   constructor(private http: HttpClient, public patientsService: PatientsService) { }
 
+  onFilterConsultations(){
+    const consultationsFilter = this.consultations.filter(consultation => {
+      return consultation.patientId === this.patientsService.patientSelected$.value.patientId;
+    })
+    this.consultationsFiltered$.next(consultationsFilter)
+  }
+
   getConsultations(): Observable<Consultation[]>{
     // return this.http.get<Consultation[]>('http://localhost:8080/api/v1/consultation/patients/' + id)
 
-    const consultationsFilter = this.consultations.filter(consultation => {
-      return consultation.patientId === (this.patientsService.patientSelected$.value as any).patientId;
-    })
-
-    this.consultationsFiltered$.next(consultationsFilter)
-    // console.log('filtered después: ', this.consultationsFiltered$.value)
-    // console.log('paciente seleccionado después:',  (this.patientsService.patientSelected$.value as any).patientId)
-    return of(consultationsFilter)
+    this.onFilterConsultations()
+    return of()
   }
 
   postConsultation(consultation: Consultation): Observable<Consultation>{
     this.consultations.push(consultation)
-    this.consultationsFiltered$.next(this.consultations)
+    this.onFilterConsultations()
     return of()
   }
 
@@ -80,11 +81,7 @@ export class ConsultationsService {
     this.consultations = this.consultations.map(consultationItem =>
       consultationItem.patientId === newConsultation.patientId ? newConsultation : consultationItem
     )
-    const consultationsFilter = this.consultations.filter(consultation => {
-      return consultation.patientId === (this.patientsService.patientSelected$.value as any).patientId;
-    })
-
-    this.consultationsFiltered$.next(consultationsFilter)
+    this.onFilterConsultations()
     return of(newConsultation)
   }
 
